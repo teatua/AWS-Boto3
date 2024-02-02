@@ -1,0 +1,20 @@
+# Import necessary libraries
+import boto3
+
+# Specify the SSO profile name that you want to use
+sso_profile_name = "boto3"
+
+# Create a Boto3 session using the SSO profile
+session = boto3.Session(profile_name=sso_profile_name)
+
+# Create an IAM client using the custom SSO profile
+iam = session.client('iam')
+
+# Create IAM Users
+users = ['User11', 'User21', 'User31']
+created_users = []
+for user in users:
+    response = iam.create_user(UserName=user)
+    created_users.append(response['User']['UserName'])
+
+print('Users created:', ','.join(created_users))

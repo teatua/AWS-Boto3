@@ -1,0 +1,16 @@
+# Import all the modules and Libraries
+import boto3
+
+# Open Session
+session = boto3.Session(profile_name='boto3')
+# Open IAM Console
+s3 = session.client(service_name="s3")
+# List Users
+result = s3.list_buckets()
+buckets = result.get('Buckets', [])
+
+if not buckets:
+    print("None")
+else:
+    for bucket in buckets:
+        print(bucket['Name'])
